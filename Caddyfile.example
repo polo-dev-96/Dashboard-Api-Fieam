@@ -1,0 +1,6 @@
+# Exemplo de Caddyfile para produção
+# Substitua "api.seusite.com" pelo seu domínio real
+
+api.seusite.com {
+    reverse_proxy localhost:3000
+}
