@@ -1,6 +1,6 @@
 import { processAudit } from '../services/auditoriaService.js';
 
-const DELAY_MS = 0;
+const DELAY_MS = 420000;
 
 export function scheduleAudit(protocol, originalWebhookPayload) {
   console.log(`[JOB] Agendando processamento do protocolo ${protocol} para daqui ${DELAY_MS / 60000} minutos.`);

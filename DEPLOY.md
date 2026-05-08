@@ -207,7 +207,7 @@ nano /etc/caddy/Caddyfile
 Apague o que tiver lá e cole isso (troque `api.seusite.com` pelo **seu** domínio):
 
 ```caddy
-api.seusite.com {
+dash-api-fieam.ippolo.com.br {
     reverse_proxy localhost:3000
 }
 ```
@@ -288,7 +288,7 @@ Aperte `CTRL + C` para sair dos logs.
 Sempre que você mandar código novo para o GitHub, faça isso no servidor:
 
 ```bash
-cd /var/www/auditoria-api
+cd /home/polotelecom/document_root/auditoria-api
 git pull
 npm install   # só se tiver novas dependências
 pm2 restart auditoria-api
