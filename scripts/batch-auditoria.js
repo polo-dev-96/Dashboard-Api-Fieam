@@ -2,9 +2,11 @@
 import path from 'path';
 import csv from 'csv-parser';
 import { processAudit } from '../src/services/auditoriaService.js';
+import { protocolExistsBaseSenai } from '../src/config/database.js';
+import { env } from '../src/config/env.js';
 
 const CSV_PATH = path.resolve(process.cwd(), 'data', 'protocolos.csv');
-const CHECKPOINT_PATH = path.resolve(process.cwd(), 'data', 'checkpoint.json');
+const CHECKPOINT_PATH = path.resolve(process.cwd(), 'data', 'checkpoint-base-senai.json');
 
 // CONFIGURAVEL: delay entre cada protocolo (ms). Aumente se tomar rate limit.
 const DELAY_MS = 1000;
@@ -33,7 +35,6 @@ async function run() {
   }
 
   const checkpoint = loadCheckpoint();
-  const processedSet = new Set(checkpoint.processed);
   const failedMap = new Map(checkpoint.failed.map(f => [f.protocol, f]));
   const notFoundSet = new Set(checkpoint.notFound);
 
@@ -74,15 +75,39 @@ async function run() {
       continue;
     }
 
-    // Se ja foi processado com sucesso, pula
-    if (processedSet.has(protocol)) {
-      // So atualiza o indice se estiver avancando o cursor
-      if (index > checkpoint.lastProcessedIndex) {
-        console.log(`[BATCH] [${index}] Protocolo ${protocol} ja processado, pulando.`);
+        // Fonte da verdade: se o protocolo ja existe na tabela configurada,
+    // pula antes de chamar PL-Chat/OpenAI
+    try {
+      const existsInDb = await protocolExistsBaseSenai(protocol);
+
+      if (existsInDb) {
+        console.log(`[BATCH] [${index}] Protocolo ${protocol} ja existe na tabela ${env.mysqlTable}, pulando.`);
         skipCount++;
-        checkpoint.lastProcessedIndex = index;
-        saveCheckpoint(checkpoint);
+
+        if (index > checkpoint.lastProcessedIndex) {
+          checkpoint.lastProcessedIndex = index;
+          saveCheckpoint(checkpoint);
+        }
+
+        continue;
       }
+    } catch (error) {
+      console.error(`[BATCH] [${index}] ERRO ao consultar protocolo ${protocol} no banco:`, error.message);
+
+      checkpoint.failed.push({
+        protocol,
+        index,
+        error: `DB_CHECK: ${error.message}`,
+        date: new Date().toISOString(),
+      });
+
+      failCount++;
+
+      if (index > checkpoint.lastProcessedIndex) {
+        checkpoint.lastProcessedIndex = index;
+      }
+
+      saveCheckpoint(checkpoint);
       continue;
     }
 
@@ -98,7 +123,6 @@ async function run() {
       await processAudit(protocol, null);
 
       checkpoint.processed.push(protocol);
-      processedSet.add(protocol);
       successCount++;
 
       // Se era retry, remove da lista de falhas

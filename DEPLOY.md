@@ -290,7 +290,7 @@ Sempre que você mandar código novo para o GitHub, faça isso no servidor:
 ```bash
 cd /home/polotelecom/document_root/auditoria-api
 git pull
-npm install   # só se tiver novas dependências
+npm install
 pm2 restart auditoria-api
 ```
 

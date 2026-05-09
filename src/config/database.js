@@ -19,6 +19,24 @@ export function getPool() {
   return pool;
 }
 
+export async function protocolExistsBaseSenai(protocol) {
+  const connection = await getPool().getConnection();
+
+  try {
+    const sql = `
+      SELECT 1
+      FROM \`${env.mysqlTable}\`
+      WHERE \`protocolo\` = ?
+      LIMIT 1;
+    `;
+
+    const [rows] = await connection.execute(sql, [protocol]);
+    return rows.length > 0;
+  } finally {
+    connection.release();
+  }
+}
+
 export async function upsertBaseSenai(data) {
   const connection = await getPool().getConnection();
   try {
