@@ -17,6 +17,7 @@ const COLUNA_PROTOCOLO = 'protocolo';
 function loadCheckpoint() {
   if (fs.existsSync(CHECKPOINT_PATH)) {
     const cp = JSON.parse(fs.readFileSync(CHECKPOINT_PATH, 'utf8'));
+    if (!cp.failed) cp.failed = [];
     if (!cp.notFound) cp.notFound = [];
     return cp;
   }
@@ -53,6 +54,11 @@ async function run() {
 
   for await (const row of stream) {
     index++;
+
+    // Pula indices ja cobertos pelo checkpoint anterior sem consultar o banco
+    if (index <= checkpoint.lastProcessedIndex) {
+      continue;
+    }
 
     const protocol = row[COLUNA_PROTOCOLO]?.trim();
     if (!protocol) {
