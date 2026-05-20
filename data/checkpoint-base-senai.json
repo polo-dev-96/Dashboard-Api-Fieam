@@ -4768,6 +4768,24 @@
       "index": 74446,
       "error": "Data too long for column 'casa' at row 1",
       "date": "2026-05-14T12:23:41.704Z"
+    },
+    {
+      "protocol": "2026040800754",
+      "index": 87137,
+      "error": "DB_CHECK: connect ETIMEDOUT",
+      "date": "2026-05-19T11:55:08.073Z"
+    },
+    {
+      "protocol": "2026040800755",
+      "index": 87138,
+      "error": "DB_CHECK: connect ETIMEDOUT",
+      "date": "2026-05-19T11:55:18.126Z"
+    },
+    {
+      "protocol": "2026040800756",
+      "index": 87139,
+      "error": "DB_CHECK: connect ETIMEDOUT",
+      "date": "2026-05-19T11:55:28.131Z"
     }
   ],
   "notFound": [
@@ -8189,5 +8207,5 @@
     "2026040800751",
     "2026040800753"
   ],
-  "lastProcessedIndex": 87136
+  "lastProcessedIndex": 87139
 }

@@ -44,6 +44,7 @@ const ALLOWED_FIRST_MESSAGES = [
   "Quero falar sobre o curso de Eletricista Instalador Predial de Baixa Tensão",
   "Quero falar mais sobre o Curso de Elaboração de Projetos para Construção Civil",
   "Quero falar mais sobre o Curso de NR10",
+  "Olá, gostaria de saber mais informações sobre Matrícula do SESI EJA PRO",
   "Quero falar sobre o curso de Modelagem para Construção Civil",
   "Quero falar sobre o curso de Eletricista de Automóveis",
   "Quero falar sobre o curso de Mecânico de Manutenção em Automóveis",
