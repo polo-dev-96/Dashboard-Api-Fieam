@@ -37,6 +37,7 @@ const ALLOWED_FIRST_MESSAGES = [
   "Olá! Tenho interesse no curso de Vantagens Tributárias da ZF de Manaus",
   "Quero saber mais informações sobre o curso de Montagem de Quadros Elétricos",
   "Quero saber mais informações sobre o Curso NR35",
+  "Olá, gostaria de saber mais informações sobre consultas no SESI Saúde",
   "Quero saber mais informações sobre o curso de Informática Avançada",
   "Quero saber sobre o curso de Leitura e Interpretação de Projetos",
   "Quero falar mais sobre o Curso de Planejamento para Construção de Edificações",
