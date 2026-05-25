@@ -77,6 +77,7 @@ const ALLOWED_FIRST_MESSAGES = [
   "MESTRE DE OBRAS",
   "SOLDADOR DE ELETRODO",
   "ELETRICISTA",
+  "Soldador de Eletrodo",
   "INFORMATICA AVANÇADA",
   "Quero falar sobre o curso de Soldador de Eletrodo Revestido",
   "Marceneiro de Moveis",
