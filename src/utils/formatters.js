@@ -6,6 +6,7 @@ const ALLOWED_FIRST_MESSAGES = [
   "Quero falar sobre o curso de Eletricidade Aplicada",
   "Olá, gostaria de saber mais informações sobre Matrícula do SESI 2026",
   "Jornada Dev",
+  "Odontologia Alunos SESI",
   "Quero falar sobre o curso de Soldador MIG/MAG",
   "Quero agendar uma visita para as ações do Junho Laranja e Violeta.",
   "Olá, quero informações sobre consulta com clínico geral.",
